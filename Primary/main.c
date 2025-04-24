@@ -10,7 +10,6 @@
 #include "metaldetector.h"
 
 int main(void) {
-    /* Replace with your application code */
     CCP = 0xd8;
     CLKCTRL.OSCHFCTRLA = 0b00011100;
     while( CLKCTRL.MCLKSTATUS & 0b00000001 ){
@@ -19,7 +18,7 @@ int main(void) {
 
     // Defining a variable for calibration voltage and starting metal detector initialization
     double vthreshold = 0;
-    detectorInit(vthreshold);    
+    detectorInit(vthreshold);   //function measures the threshold
     
     // Enabling input pins for RF receiver and outputs for motor driver controls + headlight LED
     PORTA.DIRSET = 0b11111001;
@@ -31,7 +30,7 @@ int main(void) {
     
     while(1) {
         
-        if((ADC0.RES < vthreshold - 20)) {
+        if((ADC0.RES < vthreshold - 20)) { //This loop executes when the voltage falls below our threshold
             PORTA.OUTSET = 0b10000000; // Turns on buzzer
             ADC0.INTFLAGS |= 0b00000001; // Clears Interrupt flag for ADC to start next check
         } else {
