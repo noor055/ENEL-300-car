@@ -37,7 +37,7 @@ void detectorInit(double vthreshold) {
     // vthreshold contains the average detected voltage with no metal present
     vthreshold = 0;
 
-    // An average calibration voltage is found from a number of samples
+    // An average calibration voltage is found from a number of samples sampled once per clock cycle
     for(double i = 0; i < SAMPLE_SIZE; i++) {
         vthreshold += ADC0.RES;
     }
